@@ -1,18 +1,26 @@
 package com.example.SpringRest.dto;
 
-import com.example.SpringRest.entity.Cobranza;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import javax.persistence.*;
 
-@Getter
-@Setter
 
+@Entity
+@Getter @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name="Clientes")
 public class ClienteDTO {
 
-    private String nombre;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
+
     private String dni;
-    private List<Cobranza> cobranzas;
+    private String nombre;
+
 
 }

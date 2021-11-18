@@ -1,16 +1,63 @@
 package com.example.SpringRest.service;
 
-import com.example.SpringRest.entity.Cliente;
-import com.example.SpringRest.entity.Cobranza;
-import com.example.SpringRest.entity.Inmueble;
+import com.example.SpringRest.dto.ClienteDTO;
+import com.example.SpringRest.repository.ClienteRepository;
+import com.example.SpringRest.repository.InmuebleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SistemaService {
+
+    @Autowired
+    ClienteRepository clienteRepo;
+    InmuebleRepository inmuebleRepo;
+
+    public void addCliente(ClienteDTO cliente) {
+
+        clienteRepo.creacionCliente(cliente);
+    }
+
+    public void updateCliente(String dni, String nombre, Integer id) {
+
+       clienteRepo.modificarCliente(dni, nombre, id);
+    }
+
+
+    public void removeCliente(Integer id) {
+
+        clienteRepo.eliminarCliente(id);
+    }
+
+    public void removeAll() {
+        clienteRepo.eliminarTodos();
+    }
+
+
+    public List<ClienteDTO> getLista() {
+        return null;
+    }
+
+
+    public ClienteDTO getCliente(String name) {
+        return null;
+    }
+
+    public List<ClienteDTO> getClientes() {
+        return  clienteRepo.getClientes();
+    }
+
+
+
+    /*
+
+
+    public void addInmueble(InmuebleDTO inmueble) {
+
+        inmuebleRepo.creacionInmueble(inmueble);
+    }
 
     private List<Cliente> clientes = new ArrayList<>();
     private List<Inmueble> inmuebles = new ArrayList<>();
@@ -122,11 +169,7 @@ public class SistemaService {
         return false;
     }
 
-    //COBRANZAS POR CLIENTE.
-
-
-
-    //COBRANZAS POR INMUEBLE.
+  */
 
 
 }

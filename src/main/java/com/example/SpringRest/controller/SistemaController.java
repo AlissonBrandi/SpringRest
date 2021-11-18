@@ -1,20 +1,56 @@
 package com.example.SpringRest.controller;
 
-import com.example.SpringRest.configuration.ModelConfiguration;
-import com.example.SpringRest.entity.Cliente;
-import com.example.SpringRest.entity.Cobranza;
-import com.example.SpringRest.entity.Inmueble;
-import com.example.SpringRest.exception.*;
+import com.example.SpringRest.dto.ClienteDTO;
+import com.example.SpringRest.dto.InmuebleDTO;
 import com.example.SpringRest.service.SistemaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
 public class SistemaController {
+
+
+    @Autowired
+    private SistemaService service;
+
+    @PostMapping
+    public ResponseEntity<ClienteDTO> addClientes(@RequestBody ClienteDTO cliente) {
+        System.out.println("Solicitud Realizada");
+        service.addCliente(cliente);
+        return ResponseEntity.ok(cliente);
+    }
+
+    @DeleteMapping("/eliminarCliente/{id}")
+    public void removeClientes(@PathVariable("id") Integer id) {
+        System.out.println("Solicitud Realizada");
+        service.removeCliente(id);
+    }
+
+    @DeleteMapping("/eliminarTodos")
+    public void removeAll() {
+        System.out.println("Solicitud Realizada");
+        service.removeAll();
+    }
+
+    @PutMapping("/modificarCliente/{dni}/{nombre}/{id}")
+    public void addClientes(@PathVariable("dni") String dni, @PathVariable("nombre") String nombre,@PathVariable("id") Integer id ){
+        System.out.println("Solicitud Realizada");
+        service.updateCliente(dni,nombre,id);
+    }
+
+
+
+    @GetMapping
+    public List<ClienteDTO> getClientes(){
+        return service.getClientes();
+    }
+
+
+    /*
 
     @Autowired
     private SistemaService sistemaService;
@@ -147,5 +183,9 @@ public class SistemaController {
         return sistemaService.getCobranzas();
     }
 
-
+    @PostMapping("/addCobranza")
+    public void addCo(@RequestBody Cobranza cobranza) {
+        sistemaService.addCobranza(cobranza);
+    }
+*/
 }
